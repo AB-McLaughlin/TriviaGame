@@ -20,52 +20,52 @@ var triviaList = [
     {question: "What type of animal is a seahorse?",
      choice: ["crustacean", "arachnid", "fish", "shell"],
      image: "seahorse.jpg",
-     correct: [0]
+     correct: 0
     },
     {question: "Which of the following dogs is the smallest?",
      choice: ["daschund", "poodle", "pomeranian", "chiuahua"],
      image:"chiuahua.jpg",
-     correct: [3]
+     correct: 3
     },
     {question: "What color are zebras?",
      choice: ["white with black stripes", "black with white stripes", "both of the above", "none of the above"],
      image: "zebra.jpg",
-     correct: [1]
+     correct: 1
     },
     {question: "What existing bird has the largest wingspan",
      choice: ["stork", "swan", "condor", "albatross"],
      image: "albatross.jpg",
-     correct:[3]
+     correct: 3
     },
     {question: "What is the biggest animal that has ever lived",
      choice: ["blue whale", "African elephant", "Brontosaurus", "Spinosaurus"],
      image: "blue whale.jpg",
-     correct: [0]
+     correct: 0
     },
     {question: "What pets do more families own?",
      choice: ["birds", "cats", "dogs", "horses"],
      image: "dogs.jpg",
-     correct: [2]
+     correct: 2
     },
     {question: "What animal lives the longest?",
      choice: ["clam", "red sea urchin", "Galapagos tortoise", "rougheye rockfish"],
      image: "clam.jpg",
-     correct: [0],
+     correct: 0
     },
     {question: "What are female elephants called?",
      choice: ["mares", "sows", "cows", "dams"],
      image: "elephant.jpg",
-     correct: [2]
+     correct: 2
     },
     {question: "Which of the following animals sleep standing up?",
      choice: ["gorillas", "flamingos", "camels", "ravens"],
      image: "flamingo.jpg",
-     correct: [1]
+     correct: 1
     },
     {question: "What is the fastest water animal?",
      choice: ["porpoise", "sailfish", "flying fish", "tuna"],
      image: "sailfish.jpg",
-     correct: [1]
+     correct: 1
     }]
 
 //win message
@@ -78,7 +78,7 @@ var lossMessage = "No, that's not correct"
 
 $document.ready(function(){
 //Hide start button, start timer, display question
-$("#start_button").click(function(){
+$("#start").click(function(){
     $(this).hide();
 //Show first question screen, start timer
 $("#questionScreen").click(function(){
@@ -86,7 +86,7 @@ $("#questionScreen").click(function(){
     });
     count = setInterval(timer, 1000); 
     startSlideshow();
-    }); 
+    });
  
 // new screen for each question
 function startSlideshow(){
@@ -111,7 +111,7 @@ function stopSlideshow(){
     }}}
    
 //timer counts from 30 down to 0 and stops   
-   function timer(){
+function timer(){
     count--;
     if (count <= 0) {
     clearInterval(count);
@@ -147,4 +147,3 @@ function timesUp(){
 
 
 // tally correct answers, incorrect, option to restart w/o reloading page(reset the game)
-// })})
