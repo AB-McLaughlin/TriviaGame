@@ -2,12 +2,19 @@
 
 //correct answer counter
 var correctAnswer = 0;
+
 //incorrect answer counter
 var incorrectAnswer = 0;
+
+//no answer counter
+var noAnswer = 0;
+
 //current question
 var currentQuestion = 0;
+
 //timer count: 30 seconds per question
 var count=30;
+
 //question list
 var triviaList = [
     {question: "What type of animal is a seahorse?",
@@ -17,7 +24,7 @@ var triviaList = [
     },
     {question: "Which of the following dogs is the smallest?",
      choice: ["daschund", "poodle", "pomeranian", "chiuahua"],
-     image:"chiuahua",
+     image:"chiuahua.jpg",
      correct: [3]
     },
     {question: "What color are zebras?",
@@ -57,32 +64,52 @@ var triviaList = [
     },
     {question: "What is the fastest water animal?",
      choice: ["porpoise", "sailfish", "flying fish", "tuna"],
-     image: "sailfish",
+     image: "sailfish.jpg",
      correct: [1]
     }]
 
-//win messages
-var winMessage = ["You got it!", "You're herding up the wins!", "Congratulations!", "Run with it!", "Wow! You're an animal!"]
+//win message
+var winMessage = "Yes! Good job!"
 
 //loss message
-var lossMessage = ["Keep trying", "Hang in there", "You'll get it next time"]
+var lossMessage = "No, that's not correct"
 
-//functions
+//Set functions
+
 $document.ready(function(){
 //Hide start button, start timer, display question
 $("#start_button").click(function(){
     $(this).hide();
-
 //Show first question screen, start timer
 $("#questionScreen").click(function(){
    $(this).show();
     });
     count = setInterval(timer, 1000); 
-
-   displayTrivia();
+    startSlideshow();
     }); 
  
-    
+// new screen for each question
+function startSlideshow(){
+    var currentQuestion = i;
+    for (i = 0; i<triviaList.questionlength; i++){
+    i = setInterval(triviaList.question, 30*1000)
+    }
+
+//stop slideshow
+function stopSlideshow(){
+    if (correctAnswer++){
+        clearInterval(triviaList);
+        congrats();
+    }
+    else (incorrectAnswer++);{
+        clearInterval(triviaList);
+        loser();
+    }
+    (noAnswer++);{
+        clearInterval(triviaList);
+        timesUp();
+    }}}
+   
 //timer counts from 30 down to 0 and stops   
    function timer(){
     count--;
@@ -94,12 +121,30 @@ $("#questionScreen").click(function(){
      $("#timer").html("Time remaining: " + "00:" + count + " secs");
     }})
 
-
-// correct counter
+// update correct counter
 // show congrats screen for correct/display 3-5 seconds
-// incorrect counter
+ function congrats(){
+         alert(winMessage);
+         displayImage();
+    }
+
+// update incorrect counter
 // you are wrong screen for incorrect/display 3-5 seconds
-//     display correct answer
-// new screen for each question
+function loser(){
+        alert(lossMessage);
+        alert("Correct answer is" + (triviaList.correct));
+    }
+
+// display correct answer
+function displayImage(){
+    $("#imageholder").html("<img src = "+ images[count] + "width='400px'>");
+}
+
+//time's up 
+function timesUp(){
+    alert("Oops! Time's up./n Next question coming up")
+}
+
+
 // tally correct answers, incorrect, option to restart w/o reloading page(reset the game)
 // })})
