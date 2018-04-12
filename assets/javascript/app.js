@@ -119,7 +119,7 @@ function countdown (){
 //.attr(attribute name) to set value, attributename, value) 
 
 //function buttons(){
-    // $("#button").click(function(){
+    // $("#button").attr(function(){
     //     if ("#button" = triviaList.correct){
     //         correctAnswer++;
     //         clearInterval(timer);
