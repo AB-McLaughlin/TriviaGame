@@ -13,7 +13,7 @@ var noAnswer = 0;
 var currentQuestion = 0;
 
 //timer count: 30 seconds per question
-var count=30;
+var count=5;
 
 //question list
 var triviaList = [
@@ -74,29 +74,44 @@ var winMessage = "Yes! Good job!"
 //loss message
 var lossMessage = "No, that's not correct"
 
+//set variable for setInterval method to stop at 0
+var timer;
+
 //Set functions
 
-$document.ready(function(){
-//Hide start button, start timer, display question
+$(document).ready(function(){
+    
+//Hide start screen
 $("#start").click(function(){
-    $(this).hide();
-//Show first question screen, start timer
-$("#questionScreen").click(function(){
-   $(this).show();
-    });
-    count = setInterval(timer, 1000); 
-    startSlideshow();
-    });
+    $("#topScreen").hide();
+
+//Show game screen, start timer
+    $("#questionScreen").show();
+    start();
+});
  
-// new screen for each question
-function startSlideshow(){
-    var currentQuestion = i;
-    for (i = 0; i<triviaList.questionlength; i++){
-    i = setInterval(triviaList.question, 30*1000)
+function start(){
+ //populating html with the text of the triviaList array, grabbing the first object and the key question   
+    $("#question").text(triviaList[currentQuestion].question)
+//loop through question list
+    for (var i = 0; i <= triviaList[currentQuestion].choice.length; i++){
+       var temp = "#button" + i;
+       $(temp).text(triviaList[currentQuestion].choice[i]); 
     }
+   timer = setInterval(countdown, 1000);
+}
+//timer 
+function countdown (){
+    count--;
+// displays timer at "00:00" when time runs out    
+    $("#timer").html("Time remaining: " + "00:" + count     + " secs");
+    if (count <= 0) {
+        clearInterval(timer);
+    }
+}
 
 //stop slideshow
-function stopSlideshow(){
+function stop(){
     if (correctAnswer++){
         clearInterval(triviaList);
         congrats();
@@ -108,19 +123,14 @@ function stopSlideshow(){
     (noAnswer++);{
         clearInterval(triviaList);
         timesUp();
-    }}}
+    }}
    
 //timer counts from 30 down to 0 and stops   
-function timer(){
-    count--;
-    if (count <= 0) {
-    clearInterval(count);
-    return;
-   }
-// displays timer at "00:00" when time runs out
-     $("#timer").html("Time remaining: " + "00:" + count + " secs");
-    }})
 
+///need settimeout on startSlideshow, add one to current question counter to go to next questions button click popultated; assign correct answer in value attribute in each button, grab value add 1 to wins
+//.attr(attribute name) to set value, attributename, value)       
+
+    
 // update correct counter
 // show congrats screen for correct/display 3-5 seconds
  function congrats(){
@@ -144,6 +154,7 @@ function displayImage(){
 function timesUp(){
     alert("Oops! Time's up./n Next question coming up")
 }
+})
 
 
 // tally correct answers, incorrect, option to restart w/o reloading page(reset the game)

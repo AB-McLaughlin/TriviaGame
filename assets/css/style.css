@@ -48,3 +48,23 @@ footer {
     padding-top: 55px;
     
 }
+
+#timer{
+    text-align: center;
+    color: darkred;
+    font-size: 38px;
+    padding: 30px;
+}
+
+button{
+    text-align: center;
+    color: sandybrown;
+    background-color: darkred;
+    font-weight: bolder;
+    width: 175px;
+    height: 60px;
+    margin: 0 auto;
+    display:block;
+    margin-top:20px;
+
+}
