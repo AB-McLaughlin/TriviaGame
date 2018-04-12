@@ -1,19 +1,13 @@
 //Set variables
 
-//correct answer counter
-var correctAnswer = 0;
+//timer count: 30 seconds per question
+var count=6;
 
-//incorrect answer counter
-var incorrectAnswer = 0;
-
-//no answer counter
-var noAnswer = 0;
+//set variable for setInterval method to stop at 0
+var timer;
 
 //current question
 var currentQuestion = 0;
-
-//timer count: 30 seconds per question
-var count=5;
 
 //question list
 var triviaList = [
@@ -71,11 +65,18 @@ var triviaList = [
 //win message
 var winMessage = "Yes! Good job!"
 
+//correct answer counter
+var correctAnswer = 0;
+
+//incorrect answer counter
+var incorrectAnswer = 0;
+
 //loss message
 var lossMessage = "No, that's not correct"
 
-//set variable for setInterval method to stop at 0
-var timer;
+//no answer counter
+var noAnswer = 0;
+
 
 //Set functions
 
@@ -87,7 +88,8 @@ $("#start").click(function(){
 
 //Show game screen, start timer
     $("#questionScreen").show();
-    start();
+    setTimeout(start, 1000);
+
 });
  
 function start(){
@@ -97,64 +99,70 @@ function start(){
     for (var i = 0; i <= triviaList[currentQuestion].choice.length; i++){
        var temp = "#button" + i;
        $(temp).text(triviaList[currentQuestion].choice[i]); 
+       
     }
-   timer = setInterval(countdown, 1000);
+//set timer to countdown in 1 second intervals    
+    timer = setInterval(countdown, 1000);
 }
 //timer 
 function countdown (){
     count--;
-// displays timer at "00:00" when time runs out    
-    $("#timer").html("Time remaining: " + "00:" + count     + " secs");
+// displays timer at "0" when time runs out    
+    $("#timer").html("Time remaining: " + count + " seconds");
+//stops timer at 0    
     if (count <= 0) {
-        clearInterval(timer);
+        stop();
     }
 }
 
-//stop slideshow
+//attach answers to buttons; identify which button holds the correct answer; start messages; assign correct answer in value attribute in each button, grab value add 1 to wins
+//.attr(attribute name) to set value, attributename, value) 
+
+//function buttons(){
+    // $("#button").click(function(){
+    //     if ("#button" = triviaList.correct){
+    //         correctAnswer++;
+    //         clearInterval(timer);
+    //         congrats();
+    //     }else ("button" != triviaList.correct);{
+    //         incorrectAnswer++;
+    //         clearInterval(timer);
+    //         loser();
+    //     }
+    // })}
+
+//stop without clicking
 function stop(){
-    if (correctAnswer++){
-        clearInterval(triviaList);
-        congrats();
-    }
-    else (incorrectAnswer++);{
-        clearInterval(triviaList);
-        loser();
-    }
-    (noAnswer++);{
-        clearInterval(triviaList);
-        timesUp();
-    }}
-   
-//timer counts from 30 down to 0 and stops   
+        noAnswer++;
+        clearInterval(timer);
+        alert("Oops! Time's up.  Next question coming up");
+        currentQuestion++;
+}
 
-///need settimeout on startSlideshow, add one to current question counter to go to next questions button click popultated; assign correct answer in value attribute in each button, grab value add 1 to wins
-//.attr(attribute name) to set value, attributename, value)       
-
-    
 // update correct counter
-// show congrats screen for correct/display 3-5 seconds
- function congrats(){
-         alert(winMessage);
-         displayImage();
-    }
+// show congrats screen for correct
+function congrats(){
+        alert(winMessage);
+        displayImage();
+        currentQuestion++;
+}
 
 // update incorrect counter
-// you are wrong screen for incorrect/display 3-5 seconds
+// you are wrong screen for incorrect
 function loser(){
         alert(lossMessage);
         alert("Correct answer is" + (triviaList.correct));
-    }
-
-// display correct answer
-function displayImage(){
-    $("#imageholder").html("<img src = "+ images[count] + "width='400px'>");
-}
-
-//time's up 
-function timesUp(){
-    alert("Oops! Time's up./n Next question coming up")
+        $("#imageholder").html("<img src = "+ images[count] + "width='400px'>");
+        currentQuestion++;
 }
 })
 
-
 // tally correct answers, incorrect, option to restart w/o reloading page(reset the game)
+$("#correct").html("Correct answers: " + correctAnswer);
+$("#incorrect").html("Incorrect answers: " + incorrectAnswer);
+$("#noAnswer").html("No response: " + noAnswer);
+$("#again").html("Do you want to play again?");
+$("#reload").click(function(){
+    "#questionScreen".show();
+})
+
