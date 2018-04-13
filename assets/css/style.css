@@ -1,4 +1,4 @@
-body{
+body {
     background-image: url("../images/background.jpg");
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
@@ -49,14 +49,14 @@ footer {
     
 }
 
-#timer{
+#timer {
     text-align: center;
     color: darkred;
     font-size: 38px;
     padding: 30px;
 }
 
-button{
+#button {
     text-align: center;
     color: sandybrown;
     background-color: darkred;
@@ -68,3 +68,4 @@ button{
     margin-top:20px;
 
 }
+

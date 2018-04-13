@@ -1,7 +1,7 @@
 //Set variables
 
 //timer count: 30 seconds per question
-var count=6;
+var count=10;
 
 //set variable for setInterval method to stop at 0
 var timer;
@@ -13,8 +13,8 @@ var currentQuestion = 0;
 var triviaList = [
     {question: "What type of animal is a seahorse?",
      choice: ["crustacean", "arachnid", "fish", "shell"],
-     image: "seahorse.jpg",
-     correct: 0
+     image: "/assets/images/seahorse.jpg",
+     correct: 2
     },
     {question: "Which of the following dogs is the smallest?",
      choice: ["daschund", "poodle", "pomeranian", "chiuahua"],
@@ -62,6 +62,9 @@ var triviaList = [
      correct: 1
     }]
 
+//answer index
+var selectedAnswerIndex;
+
 //win message
 var winMessage = "Yes! Good job!"
 
@@ -72,7 +75,7 @@ var correctAnswer = 0;
 var incorrectAnswer = 0;
 
 //loss message
-var lossMessage = "No, that's not correct"
+var lossMessage = "No, that's not correct.  The correct answer is pictured below."
 
 //no answer counter
 var noAnswer = 0;
@@ -89,8 +92,28 @@ $("#start").click(function(){
 //Show game screen, start timer
     $("#questionScreen").show();
     setTimeout(start, 1000);
+    start();
 
 });
+
+
+//attach answers to buttons; identify which button holds the correct answer; start messages; assign correct answer in value attribute in each button, grab value add 1 to wins
+//.attr(attribute name) to set value, attributename, value) 
+
+    $(".btn").click(function(){
+        selectedAnswerIndex = $(this).attr(".btn");              
+        if (selectedAnswerIndex == triviaList.correct){
+            clearInterval(timer);
+            correctAnswer++;
+            congrats();
+            
+        } else {
+            incorrectAnswer++;
+            clearInterval(timer);
+            loser();
+            
+        }
+    });
  
 function start(){
  //populating html with the text of the triviaList array, grabbing the first object and the key question   
@@ -115,22 +138,6 @@ function countdown (){
     }
 }
 
-//attach answers to buttons; identify which button holds the correct answer; start messages; assign correct answer in value attribute in each button, grab value add 1 to wins
-//.attr(attribute name) to set value, attributename, value) 
-
-//function buttons(){
-    // $("#button").attr(function(){
-    //     if ("#button" = triviaList.correct){
-    //         correctAnswer++;
-    //         clearInterval(timer);
-    //         congrats();
-    //     }else ("button" != triviaList.correct);{
-    //         incorrectAnswer++;
-    //         clearInterval(timer);
-    //         loser();
-    //     }
-    // })}
-
 //stop without clicking
 function stop(){
         noAnswer++;
@@ -151,8 +158,7 @@ function congrats(){
 // you are wrong screen for incorrect
 function loser(){
         alert(lossMessage);
-        alert("Correct answer is" + (triviaList.correct));
-        $("#imageholder").html("<img src = "+ images[count] + "width='400px'>");
+      //  $("#imageholder").html("<img src = " + triviaList.image + "width='400px'>");
         currentQuestion++;
 }
 })
