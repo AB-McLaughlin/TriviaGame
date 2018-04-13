@@ -13,7 +13,7 @@ var currentQuestion = 0;
 var triviaList = [
     {question: "What type of animal is a seahorse?",
      choice: ["crustacean", "arachnid", "fish", "shell"],
-     image: "/assets/images/seahorse.jpg",
+     image: src = "/assets/images/seahorse.jpg",
      correct: 2
     },
     {question: "Which of the following dogs is the smallest?",
@@ -63,7 +63,7 @@ var triviaList = [
     }]
 
 //answer index
-var selectedAnswerIndex;
+var userChoice;
 
 //win message
 var winMessage = "Yes! Good job!"
@@ -97,12 +97,12 @@ $("#start").click(function(){
 });
 
 
-//attach answers to buttons; identify which button holds the correct answer; start messages; assign correct answer in value attribute in each button, grab value add 1 to wins
+//identify which button holds the correct answer; start messages; assign correct answer in value attribute in each button, grab value add 1 to wins
 //.attr(attribute name) to set value, attributename, value) 
 
     $(".btn").click(function(){
-        selectedAnswerIndex = $(this).attr(".btn");              
-        if (selectedAnswerIndex == triviaList.correct){
+        userChoice = $(this).attr("#button");             
+        if (userChoice == triviaList.correct){
             clearInterval(timer);
             correctAnswer++;
             congrats();
@@ -158,9 +158,18 @@ function congrats(){
 // you are wrong screen for incorrect
 function loser(){
         alert(lossMessage);
-      //  $("#imageholder").html("<img src = " + triviaList.image + "width='400px'>");
+        $("#imageholder").html("<img src = " + triviaList.image + "width='400px'>");
         currentQuestion++;
 }
+
+function reset(){
+    correctAnswer = 0;
+    incorrectAnswer = 0;
+    noAnswer = 0;
+    currentQuestion = 0;
+
+}
+
 })
 
 // tally correct answers, incorrect, option to restart w/o reloading page(reset the game)
@@ -168,7 +177,7 @@ $("#correct").html("Correct answers: " + correctAnswer);
 $("#incorrect").html("Incorrect answers: " + incorrectAnswer);
 $("#noAnswer").html("No response: " + noAnswer);
 $("#again").html("Do you want to play again?");
-$("#reload").click(function(){
+$("#reload").click(function(reset){
     "#questionScreen".show();
 })
 
