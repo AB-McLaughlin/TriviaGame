@@ -1,7 +1,7 @@
 //Set variables
 
 //timer count: 30 seconds per question
-var count=10;
+var count=6;
 
 //set variable for setInterval method to stop at 0
 var timer;
@@ -13,52 +13,42 @@ var currentQuestion = 0;
 var triviaList = [
     {question: "What type of animal is a seahorse?",
      choice: ["crustacean", "arachnid", "fish", "shell"],
-     image: src = "/assets/images/seahorse.jpg",
      correct: 2
     },
     {question: "Which of the following dogs is the smallest?",
      choice: ["daschund", "poodle", "pomeranian", "chiuahua"],
-     image:"chiuahua.jpg",
      correct: 3
     },
     {question: "What color are zebras?",
      choice: ["white with black stripes", "black with white stripes", "both of the above", "none of the above"],
-     image: "zebra.jpg",
      correct: 1
     },
-    {question: "What existing bird has the largest wingspan",
+    {question: "What existing bird has the largest wingspan?",
      choice: ["stork", "swan", "condor", "albatross"],
-     image: "albatross.jpg",
      correct: 3
     },
-    {question: "What is the biggest animal that has ever lived",
-     choice: ["blue whale", "African elephant", "Brontosaurus", "Spinosaurus"],
-     image: "blue whale.jpg",
+    {question: "What is the biggest animal that has ever lived?",
+     choice: ["blue whale", "African elephant", "brontosaurus", "spinosaurus"],
      correct: 0
     },
     {question: "What pets do more families own?",
      choice: ["birds", "cats", "dogs", "horses"],
-     image: "dogs.jpg",
      correct: 2
     },
     {question: "What animal lives the longest?",
      choice: ["clam", "red sea urchin", "Galapagos tortoise", "rougheye rockfish"],
-     image: "clam.jpg",
      correct: 0
     },
     {question: "What are female elephants called?",
      choice: ["mares", "sows", "cows", "dams"],
-     image: "elephant.jpg",
      correct: 2
     },
     {question: "Which of the following animals sleep standing up?",
      choice: ["gorillas", "flamingos", "camels", "ravens"],
-     image: "flamingo.jpg",
      correct: 1
     },
     {question: "What is the fastest water animal?",
      choice: ["porpoise", "sailfish", "flying fish", "tuna"],
-     image: "sailfish.jpg",
      correct: 1
     }]
 
@@ -75,10 +65,13 @@ var correctAnswer = 0;
 var incorrectAnswer = 0;
 
 //loss message
-var lossMessage = "No, that's not correct.  The correct answer is pictured below."
+var lossMessage = "No, that's not correct."
 
 //no answer counter
 var noAnswer = 0;
+
+//no answer message
+var noAnswerMessage = "Oops!  Time's up.";
 
 
 //Set functions
@@ -91,48 +84,55 @@ $("#start").click(function(){
 
 //Show game screen, start timer
     $("#questionScreen").show();
-    setTimeout(start, 1000);
     start();
 
 });
 
 
-//identify which button holds the correct answer; start messages; assign correct answer in value attribute in each button, grab value add 1 to wins
-//.attr(attribute name) to set value, attributename, value) 
-
-    $("button.btn").click(function(){
-        userChoice = $(this).attr("#button2"); 
-        console.log = (userChoice);            
-        if (userChoice != triviaList.correct){
-            clearInterval(timer);
-            incorrectAnswer++;
-            loser();
-            
-        } else {
-            correctAnswer++;
-            clearInterval(timer);
-            congrats();
-            
-        }
-    });
- 
-function start(){
- //populating html with the text of the triviaList array, grabbing the first object and the key question   
-    $("#question").text(triviaList[currentQuestion].question)
-//loop through question list
-    for (var i = 0; i <= triviaList[currentQuestion].choice.length; i++){
-       var temp = "#button" + i;
-       $(temp).text(triviaList[currentQuestion].choice[i]); 
-       
+//identify which button holds the correct answer; start messages; assign correct answer
+$(".btn button").click(function() {
+    userChoice = ($(this).data("choice"));
+    clearInterval(timer);
+    
+                         
+    if (userChoice != triviaList[currentQuestion].correct){
+        incorrectAnswer++;
+        alert(lossMessage);
+        currentQuestion++;
+        count = 6;
+        start();
+                   
+    } else {
+        correctAnswer++;
+        alert(winMessage);
+        currentQuestion++;
+        count = 6;
+        start();           
     }
+});
+//populating html with the text of the triviaList array, get 1st object & the key: question   
+function start(){
+ 
+    $("#question").text(triviaList[currentQuestion].question);
+
+//loop through question list
+    for (var i = 0; i < triviaList[currentQuestion].choice.length; i++){
+       var temp = "#button" + i;
+       $(temp).text(triviaList[currentQuestion].choice[i]);
+        
+}
+
 //set timer to countdown in 1 second intervals    
     timer = setInterval(countdown, 1000);
 }
-//timer 
+
+//start timer 
 function countdown (){
     count--;
+
 // displays timer at "0" when time runs out    
     $("#timer").html("Time remaining: " + count + " seconds");
+
 //stops timer at 0    
     if (count <= 0) {
         stop();
@@ -143,26 +143,21 @@ function countdown (){
 function stop(){
         noAnswer++;
         clearInterval(timer);
-        alert("Oops! Time's up.  Next question coming up");
+        alert(noAnswerMessage);
         currentQuestion++;
+        count = 6;
+        start();
 }
 
-// update correct counter
-// show congrats screen for correct
-function congrats(){
-        alert(winMessage);
-        displayImage();
-        currentQuestion++;
-}
-
-// update incorrect counter
-// you are wrong screen for incorrect
+// update incorrect counter, alert
 function loser(){
+        incorrectAnswer++;
         alert(lossMessage);
-        $("#imageholder").html("<img src = " + triviaList.image + "width='400px'>");
+        displayImage;
         currentQuestion++;
 }
 
+//start the game again
 function reset(){
     correctAnswer = 0;
     incorrectAnswer = 0;
@@ -170,9 +165,13 @@ function reset(){
     currentQuestion = 0;
 
 }
-
 })
-
+//not working function to stop game, show tally
+function endGame(){
+    if(currentQuestion = 10){
+        "#tally".show();
+    }
+}
 // tally correct answers, incorrect, option to restart w/o reloading page(reset the game)
 $("#correct").html("Correct answers: " + correctAnswer);
 $("#incorrect").html("Incorrect answers: " + incorrectAnswer);
@@ -181,4 +180,3 @@ $("#again").html("Do you want to play again?");
 $("#reload").click(function(reset){
     "#questionScreen".show();
 })
-

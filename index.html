@@ -15,7 +15,7 @@
 
 </head>
 <body>
-    <h1> Animal Trivia Game</h1>
+    <h1> Animal Trivia Game</h1>  
 
 <!--Start screen-->
         <div id = "topScreen">
@@ -27,23 +27,24 @@
                     <br>
                     <br> 
                 </div>
-                    <footer>Press the start button to begin</footer>              
+                        <footer>Press the start button to begin</footer>              
         </div>
         
 <!--Question Screen-->
-        <div id = "questionScreen">
+    <div id = "questionScreen">
+      
             <div id = "timer"></div>
             <div class = "game">
                 <p id = "question"></p>
                 <div class = "btn">
-                    <button id = "button0"></button>
-                    <button id = "button1"></button>
-                    <button id = "button2"></button>
-                    <button id = "button3"></button>
+                    <button id = "button0" data-choice= "0"></button>
+                    <button id = "button1" data-choice= "1"></button>
+                    <button id = "button2" data-choice= "2"></button>
+                    <button id = "button3" data-choice= "3"></button>
                 </div>
                     <div id = "imageholder"></div>
             </div>
-        </div>
+    </div>
 
 <!--Tally Screen-->
                         <div id = "tally">
@@ -51,7 +52,7 @@
                             <h4 id = "incorrect"></h4>
                             <h4 id = "noAnswer"></h4>
                             <h4 id = "again"></h4>
-                            <div id = "reload"></div>
+                            <label id = "reload"></label>
                         </div>        
              
 </body>
