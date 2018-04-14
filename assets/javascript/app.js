@@ -100,17 +100,18 @@ $("#start").click(function(){
 //identify which button holds the correct answer; start messages; assign correct answer in value attribute in each button, grab value add 1 to wins
 //.attr(attribute name) to set value, attributename, value) 
 
-    $(".btn").click(function(){
-        userChoice = $(this).attr("#button");             
-        if (userChoice == triviaList.correct){
+    $("button.btn").click(function(){
+        userChoice = $(this).attr("#button2"); 
+        console.log = (userChoice);            
+        if (userChoice != triviaList.correct){
             clearInterval(timer);
-            correctAnswer++;
-            congrats();
+            incorrectAnswer++;
+            loser();
             
         } else {
-            incorrectAnswer++;
+            correctAnswer++;
             clearInterval(timer);
-            loser();
+            congrats();
             
         }
     });
