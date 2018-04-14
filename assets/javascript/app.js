@@ -1,7 +1,7 @@
 //Set variables
 
 //timer count: 30 seconds per question
-var count=6;
+var count=31;
 
 //set variable for setInterval method to stop at 0
 var timer;
@@ -77,7 +77,9 @@ var noAnswerMessage = "Oops!  Time's up.";
 //Set functions
 
 $(document).ready(function(){
-    
+    $("#questionScreen").hide(); 
+    $("#tally").hide(); 
+
 //Hide start screen
 $("#start").click(function(){
     $("#topScreen").hide();
@@ -99,14 +101,14 @@ $(".btn button").click(function() {
         incorrectAnswer++;
         alert(lossMessage);
         currentQuestion++;
-        count = 6;
+        count = 31;
         start();
                    
     } else {
         correctAnswer++;
         alert(winMessage);
         currentQuestion++;
-        count = 6;
+        count = 31;
         start();           
     }
 });
@@ -145,7 +147,7 @@ function stop(){
         clearInterval(timer);
         alert(noAnswerMessage);
         currentQuestion++;
-        count = 6;
+        count = 31;
         start();
 }
 
