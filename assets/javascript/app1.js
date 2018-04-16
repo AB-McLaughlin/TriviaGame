@@ -111,19 +111,19 @@ $(".btn button").click(function() {
     if (userChoice != triviaList[currentQuestion].correct){
         incorrectAnswer++;
         alert(lossMessage);
+        alert("The correct answer was " +  (triviaList[currentQuestion].correctChoice) + ".");
         currentQuestion++;
         count = 5;
         start();
                            
-    }else {
+    }else if(userChoice == triviaList[currentQuestion].correct){
         correctAnswer++;
         alert(winMessage);
         currentQuestion++;
         count = 5;
         start();  
-    
-    }
-});
+
+    }})
 
 //populating html with the text of the triviaList array, get 1st object & the key: question   
 function start(){
@@ -138,12 +138,9 @@ function start(){
       
       }
 
-
 //set timer to countdown in 1 second intervals    
     timer = setInterval(countdown, 1000);
 }
-
-
 
 //start timer 
 function countdown(){
@@ -170,7 +167,15 @@ function stop(){
         
 }
 
-//start the game again
+//end game, switch to tally screen
+function endGame(){
+        alert("Game Over!  Show results");
+        $("#questionScreen").hide(); 
+        $("#tally").show(); 
+     
+}
+
+//reset game
 function reset(){
     correctAnswer = 0;
     incorrectAnswer = 0;
@@ -178,15 +183,8 @@ function reset(){
     currentQuestion = 0;
     $("#tally").hide();
     $("#questionScreen").show();
-    
 }
 
-//end game, switch to tally screen
-function endGame(){
-        alert("Game Over!  Show results");
-        $("#questionScreen").hide(); 
-        $("#tally").show(); 
-}
 // update correct answers, incorrect, no answers
         $("#correct").html("Correct answers: " + correctAnswer);
         $("#incorrect").html("Incorrect answers: " + incorrectAnswer);
@@ -194,7 +192,6 @@ function endGame(){
 
 // option to restart w/o reloading page(reset the game) 
         $("#reload").click;
-        reset();
-      
+         reset(); 
 
 })
