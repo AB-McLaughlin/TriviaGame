@@ -1,7 +1,7 @@
 //Set variables
 
-//timer count: 30 seconds per question
-var count=5;
+//timer count: 6 seconds per question
+var count=6;
 
 //set variable for setInterval method to stop at 0
 var timer;
@@ -13,43 +13,53 @@ var currentQuestion = 0;
 var triviaList = [
     {question: "What type of animal is a seahorse?",
      choice: ["crustacean", "arachnid", "fish", "shell"],
-     correct: 2
+     correct: 2,
+     correctChoice: "fish"
     },
     {question: "Which of the following dogs is the smallest?",
      choice: ["daschund", "poodle", "pomeranian", "chiuahua"],
-     correct: 3
+     correct: 3,
+     correctChoice: "chiuahua"
     },
     {question: "What color are zebras?",
      choice: ["white with black stripes", "black with white stripes", "both of the above", "none of the above"],
-     correct: 1
+     correct: 1,
+     correctChoice: "black with white stripes"
     },
     {question: "What existing bird has the largest wingspan?",
      choice: ["stork", "swan", "condor", "albatross"],
-     correct: 3
+     correct: 3,
+     correctChoice: "albatross"
     },
     {question: "What is the biggest animal that has ever lived?",
      choice: ["blue whale", "African elephant", "brontosaurus", "spinosaurus"],
-     correct: 0
+     correct: 0,
+     correctChoice: "blue whale"
     },
     {question: "What pets do more families own?",
      choice: ["birds", "cats", "dogs", "horses"],
-     correct: 2
+     correct: 2,
+     correctChoice: "dogs"
     },
     {question: "What animal lives the longest?",
      choice: ["clam", "red sea urchin", "Galapagos tortoise", "rougheye rockfish"],
-     correct: 0
+     correct: 0,
+     correctChoice: "clam"
     },
     {question: "What are female elephants called?",
      choice: ["mares", "sows", "cows", "dams"],
-     correct: 2
+     correct: 2,
+     correctChoice: "cows"
     },
     {question: "Which of the following animals sleep standing up?",
      choice: ["gorillas", "flamingos", "camels", "ravens"],
-     correct: 1
+     correct: 1,
+     correctChoice: "flamingos"
     },
     {question: "What is the fastest water animal?",
      choice: ["porpoise", "sailfish", "flying fish", "tuna"],
-     correct: 1
+     correct: 1,
+     correctChoice: "sailfish"
     }]
 
 //answer index
@@ -72,6 +82,9 @@ var noAnswer = 0;
 
 //no answer message
 var noAnswerMessage = "Oops!  Time's up.";
+
+//correct answer message
+//var correctMessage = "The correct answer was " +  (triviaList[currentQuestion].correct) + ".";
 
 
 //Set functions
@@ -98,16 +111,17 @@ $(".btn button").click(function() {
     if (userChoice != triviaList[currentQuestion].correct){
         incorrectAnswer++;
         alert(lossMessage);
+        alert("The correct answer was " +  (triviaList[currentQuestion].correctChoice) + ".");
         currentQuestion++;
-        count = 5;
-        start();
+        count = 6;
+        setTimeout(start,(2000));
                            
     }else {
         correctAnswer++;
         alert(winMessage);
         currentQuestion++;
-        count = 5;
-        start();  
+        count = 6;
+        setTimeout(start,(2000));  
     
     }
 });
@@ -146,18 +160,11 @@ function stop(){
         noAnswer++;
         clearInterval(timer);
         alert(noAnswerMessage);
+        alert("The correct answer was " +  (triviaList[currentQuestion].correctChoice) + ".");
         currentQuestion++;
-        count = 5;
-        start();
+        count = 6;
+        setTimeout(start,(2000));
         
-}
-
-// update incorrect counter, alert
-function loser(){
-        incorrectAnswer++;
-        alert(lossMessage);
-        displayImage;
-        currentQuestion++;
 }
 
 //start the game again
