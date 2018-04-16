@@ -1,7 +1,7 @@
 //Set variables
 
 //timer count: 30 seconds per question
-var count=31;
+var count=5;
 
 //set variable for setInterval method to stop at 0
 var timer;
@@ -90,49 +90,49 @@ $("#start").click(function(){
 
 });
 
-
 //identify which button holds the correct answer; start messages; assign correct answer
 $(".btn button").click(function() {
     userChoice = ($(this).data("choice"));
-    clearInterval(timer);
-    
+    clearInterval(timer);  
                          
     if (userChoice != triviaList[currentQuestion].correct){
         incorrectAnswer++;
         alert(lossMessage);
         currentQuestion++;
-        count = 31;
+        count = 5;
         start();
-                   
-    } else {
+                           
+    }else {
         correctAnswer++;
         alert(winMessage);
         currentQuestion++;
-        count = 31;
-        start();           
+        count = 5;
+        start();  
+    
     }
 });
+
 //populating html with the text of the triviaList array, get 1st object & the key: question   
 function start(){
  
-    $("#question").text(triviaList[currentQuestion].question);
+    $("#question").text(triviaList[currentQuestion].question); 
 
 //loop through question list
-    for (var i = 0; i < triviaList[currentQuestion].choice.length; i++){
+    for (var i = 0; i <= triviaList[currentQuestion].choice.length; i++){
        var temp = "#button" + i;
        $(temp).text(triviaList[currentQuestion].choice[i]);
         
-}
+    }
 
 //set timer to countdown in 1 second intervals    
     timer = setInterval(countdown, 1000);
 }
 
 //start timer 
-function countdown (){
+function countdown(){
     count--;
 
-// displays timer at "0" when time runs out    
+// displays timer    
     $("#timer").html("Time remaining: " + count + " seconds");
 
 //stops timer at 0    
@@ -147,8 +147,9 @@ function stop(){
         clearInterval(timer);
         alert(noAnswerMessage);
         currentQuestion++;
-        count = 31;
+        count = 5;
         start();
+        
 }
 
 // update incorrect counter, alert
@@ -165,20 +166,25 @@ function reset(){
     incorrectAnswer = 0;
     noAnswer = 0;
     currentQuestion = 0;
+    $("#tally").hide();
+    $("#questionScreen").show();
+    
+}
 
-}
-})
-//not working function to stop game, show tally
+//end game, switch to tally screen
 function endGame(){
-    if(currentQuestion = 10){
-        "#tally".show();
-    }
+        alert("Game Over!  Show results");
+        $("#questionScreen").hide(); 
+        $("#tally").show(); 
+
+// update correct answers, incorrect, no answers
+        $("#correct").html("Correct answers: " + correctAnswer);
+        $("#incorrect").html("Incorrect answers: " + incorrectAnswer);
+        $("#noAnswer").html("No response: " + noAnswer);
+
+// option to restart w/o reloading page(reset the game) 
+        $("#reload").click;
+        reset();
+      
 }
-// tally correct answers, incorrect, option to restart w/o reloading page(reset the game)
-$("#correct").html("Correct answers: " + correctAnswer);
-$("#incorrect").html("Incorrect answers: " + incorrectAnswer);
-$("#noAnswer").html("No response: " + noAnswer);
-$("#again").html("Do you want to play again?");
-$("#reload").click(function(reset){
-    "#questionScreen".show();
 })
