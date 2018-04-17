@@ -111,6 +111,7 @@ $(".btn button").click(function() {
     if (userChoice != triviaList[currentQuestion].correct){
         incorrectAnswer++;
         alert(lossMessage);
+        alert("The correct answer is " +  (triviaList[currentQuestion].correctChoice) + ".");
         currentQuestion++;
         count = 5;
         start();
@@ -127,9 +128,12 @@ $(".btn button").click(function() {
 
 //populating html with the text of the triviaList array, get 1st object & the key: question   
 function start(){
+
+    if (currentQuestion >= triviaList.length) {
+        endGame();
+    }
  
     $("#question").text(triviaList[currentQuestion].question); 
-
 
 //loop through question list
     for (var i = 0; i <= triviaList[currentQuestion].choice.length; i++){
@@ -138,12 +142,9 @@ function start(){
       
       }
 
-
 //set timer to countdown in 1 second intervals    
     timer = setInterval(countdown, 1000);
 }
-
-
 
 //start timer 
 function countdown(){
@@ -163,11 +164,10 @@ function stop(){
         noAnswer++;
         clearInterval(timer);
         alert(noAnswerMessage);
-        alert("The correct answer was " +  (triviaList[currentQuestion].correctChoice) + ".");
+        alert("The correct answer is " +  (triviaList[currentQuestion].correctChoice) + ".");
         currentQuestion ++;
         count = 6;
         setTimeout(start,(2000));
-        
 }
 
 //start the game again
@@ -178,23 +178,19 @@ function reset(){
     currentQuestion = 0;
     $("#tally").hide();
     $("#questionScreen").show();
-    
+    start();
 }
 
-//end game, switch to tally screen
+//end game, switch to tally screen; update totals; reload
 function endGame(){
+    $("#correct").html("Correct answers: " + correctAnswer);
+    $("#incorrect").html("Incorrect answers: " + incorrectAnswer);
+    $("#noAnswer").html("No response: " + noAnswer)
         alert("Game Over!  Show results");
         $("#questionScreen").hide(); 
         $("#tally").show(); 
+        $("#reload").on("click", function() {
+            reset(); 
+        });
 }
-// update correct answers, incorrect, no answers
-        $("#correct").html("Correct answers: " + correctAnswer);
-        $("#incorrect").html("Incorrect answers: " + incorrectAnswer);
-        $("#noAnswer").html("No response: " + noAnswer);
-
-// option to restart w/o reloading page(reset the game) 
-        $("#reload").click;
-        reset();
-      
-
 })
