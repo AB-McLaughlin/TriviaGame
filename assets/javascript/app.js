@@ -1,7 +1,7 @@
 //Set variables
 
-//timer count: 6 seconds per question
-var count=6;
+//timer count: 11 seconds per question
+var count=11;
 
 //set variable for setInterval method to stop at 0
 var timer;
@@ -113,14 +113,14 @@ $(".btn button").click(function() {
         alert(lossMessage);
         alert("The correct answer is " +  (triviaList[currentQuestion].correctChoice) + ".");
         currentQuestion++;
-        count = 5;
+        count = 11;
         start();
                            
     }else {
         correctAnswer++;
         alert(winMessage);
         currentQuestion++;
-        count = 5;
+        count = 11;
         start();  
     
     }
@@ -166,7 +166,7 @@ function stop(){
         alert(noAnswerMessage);
         alert("The correct answer is " +  (triviaList[currentQuestion].correctChoice) + ".");
         currentQuestion ++;
-        count = 6;
+        count = 11;
         setTimeout(start,(2000));
 }
 
